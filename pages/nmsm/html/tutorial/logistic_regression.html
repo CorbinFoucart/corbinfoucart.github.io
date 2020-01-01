@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5. Classification and logistic regression &mdash; NMSMExp 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Random linear classifiers" href="perceptron.html" />
+    <link rel="prev" title="4. Newton methods" href="newton_methods.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> NMSMExp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Linear Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#probability-and-statistics">Probability and Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#convex-optimization">Convex Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#bayesian-inference">Bayesian Inference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html#machine-learning">Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PRML_ch1_intro.html">1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PRML_ch3_lin_reg.html">2. Linear models for regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_regression.html">3. Linear regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="newton_methods.html">4. Newton methods</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Classification and logistic regression</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Classification-problems">5.1. Classification problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Logistic-regression">5.2. Logistic regression</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#The-logistic-function">5.2.1. The logistic function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#The-logistic-regression-hypothesis">5.2.2. The logistic regression hypothesis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Interpretation-of-hypothesis-output-and-decision-boundary">5.2.3. Interpretation of hypothesis output and decision boundary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Example:-actuarial-prediction">5.2.4. Example: actuarial prediction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#How-to-train-the-hypothesis-on-data">5.2.5. How to train the hypothesis on data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Locally-weighted-logistic-regression">5.3. Locally weighted logistic regression</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="perceptron.html">6. Random linear classifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perceptron.html#Perceptrons">7. Perceptrons</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#gaussian-processes">Gaussian Processes</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NMSMExp</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linear Algebra</a> &raquo;</li>
+        
+      <li>5. Classification and logistic regression</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorial/logistic_regression.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">cm</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;bmh&#39;</span><span class="p">)</span>
+
+<span class="c1"># custom figure styles</span>
+<span class="kn">from</span> <span class="nn">plot_style</span> <span class="k">import</span> <span class="n">std_fig</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Classification-and-logistic-regression">
+<h1>5. Classification and logistic regression<a class="headerlink" href="#Classification-and-logistic-regression" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Classification-problems">
+<h2>5.1. Classification problems<a class="headerlink" href="#Classification-problems" title="Permalink to this headline">¶</a></h2>
+<p><strong>Classification problems</strong> are like regression problems, but the predicted values <span class="math notranslate nohighlight">\(y\)</span> of our model <span class="math notranslate nohighlight">\(h\)</span> now take on discrete values. This section will focus on the <strong>binary classfication</strong> problem, in which <span class="math notranslate nohighlight">\(y\)</span> takes values only in <span class="math notranslate nohighlight">\(\{0, 1\}\)</span>.</p>
+</div>
+<div class="section" id="Logistic-regression">
+<h2>5.2. Logistic regression<a class="headerlink" href="#Logistic-regression" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="The-logistic-function">
+<h3>5.2.1. The logistic function<a class="headerlink" href="#The-logistic-function" title="Permalink to this headline">¶</a></h3>
+<p>Logistic regression is horribly named, because it doesn’t do regression at all; it is a method of doing classification.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">g</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>We start by defining the <strong>logistic function</strong> or <strong>sigmoid function</strong>.</p>
+<p><span class="math">\begin{equation}
+g(z) = \frac{1}{1+e^{-z}}
+\end{equation}</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">std_fig</span><span class="p">()</span> <span class="k">as</span> <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">g</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_logistic_regression_7_0.png" src="../_images/tutorial_logistic_regression_7_0.png" />
+</div>
+</div>
+<p>The logistic function <span class="math notranslate nohighlight">\(g(z)\)</span> tends to 0 as <span class="math notranslate nohighlight">\(z\to -\infty\)</span> and tends to 1 as <span class="math notranslate nohighlight">\(z\to +\infty\)</span>. But the important point is that <span class="math notranslate nohighlight">\(g(z)\)</span> is always bounded between 0 and 1 (other functions that are smooth and increase from 0 to 1 could also work, but it turns out the logistic function is a natural choice; see notes on generalized linear models for more information). <strong>The important point is that the logistic function can map a function defined on the reals to a probability.</strong></p>
+<p>The logistic function has the useful property that</p>
+<p><span class="math">\begin{equation}
+g^\prime(z) = \frac{d }{d z} \frac{1}{1+e^{-z}} = g(z) \left(1-g(z)\right)
+\end{equation}</span></p>
+</div>
+<div class="section" id="The-logistic-regression-hypothesis">
+<h3>5.2.2. The logistic regression hypothesis<a class="headerlink" href="#The-logistic-regression-hypothesis" title="Permalink to this headline">¶</a></h3>
+<p>Our modified hypothesis <span class="math notranslate nohighlight">\(h_\theta(x)\)</span> is</p>
+<p><span class="math">\begin{equation}
+h_\theta(x) = g\left(\theta^T x\right) = \frac{1}{1+e^{-\theta^T x}},
+\end{equation}</span></p>
+<p>A good way to understand logistic regression (similar to the probabilistic interpretation of linear regression) is to endow the classification model with a set of probabilistic properties and then fit the parameters in a maximum likelihood sense.</p>
+</div>
+<div class="section" id="Interpretation-of-hypothesis-output-and-decision-boundary">
+<h3>5.2.3. Interpretation of hypothesis output and decision boundary<a class="headerlink" href="#Interpretation-of-hypothesis-output-and-decision-boundary" title="Permalink to this headline">¶</a></h3>
+<p>Note that for data <span class="math notranslate nohighlight">\(x\)</span> and a given <span class="math notranslate nohighlight">\(\theta\)</span>, the hypothesis <span class="math notranslate nohighlight">\(h_\theta(x)\)</span> returns a scalar. However, the hypothesis function <span class="math notranslate nohighlight">\(h_\theta(x)\)</span> is a continuous function of <span class="math notranslate nohighlight">\(x\)</span>, so it seems that we are no closer to our goal of a classification algorithm, which should ultimately return a decision whether a new point should be classified as 0 or 1.</p>
+<p><span class="math">\begin{align}
+P(y=1|x;\theta) &= h_\theta(x) \\
+P(y=0|x;\theta) &= 1-h_\theta(x)
+\end{align}</span></p>
+<p>The random variable <span class="math notranslate nohighlight">\(Y|X;\theta\)</span> is distributed as a Bernoulli random variable.</p>
+<p>By interpreting the outputs as a Bernoulli random variable, we have a natural way of making the decision. We can classify a new data point <span class="math notranslate nohighlight">\(x_{new}\)</span> as</p>
+<p><span class="math">\begin{align}
+y=1 \qquad &\text{if} \qquad h_\theta(x_{new}) \geq 0.5 \\
+y=0 \qquad &\text{if} \qquad h_\theta(x_{new}) < 0.5 \\
+\end{align}</span></p>
+<p>Considering the behavior of the logistic function <span class="math notranslate nohighlight">\(g(z)\)</span>, we have that</p>
+<p><span class="math">\begin{align}
+g(z) \geq 0.5 \qquad &\text{if} \qquad \theta^T x_{new} \geq 0 \\
+g(z) < 0.5 \qquad &\text{if} \qquad \theta^T x_{new} < 0
+\end{align}</span></p>
+<p>which implies that the hyperplane <span class="math notranslate nohighlight">\(\theta^T x=0\)</span> is separating the space. We refer to the hyperplane as the <strong>decision boundary</strong>. There are generalizations of this to nonlinear separating boundaries; we defer discussion of this generalization for the time being.</p>
+</div>
+<div class="section" id="Example:-actuarial-prediction">
+<h3>5.2.4. Example: actuarial prediction<a class="headerlink" href="#Example:-actuarial-prediction" title="Permalink to this headline">¶</a></h3>
+<p>As an illustrative example, suppose we have a simple actuarial model which attempts to predict the probability of being dead in the next month given a person’s age and cholesterol. All of these numbers are cooked up.</p>
+<p>We suppose that <span class="math notranslate nohighlight">\(\theta = [-210, 2.3, 0.5]\)</span> has already been computed from training data. Our feature vector is <span class="math notranslate nohighlight">\(x = (x_0,\, x_1,\, x_2)\)</span> where <span class="math notranslate nohighlight">\(x_0 =1\)</span> is the offset (hence 1 by convention), <span class="math notranslate nohighlight">\(x_1\)</span> is age in years, and <span class="math notranslate nohighlight">\(x_2\)</span> is LDL cholesterol level in mmol/L.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">ldl_cholesterol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">AGE</span><span class="p">,</span> <span class="n">LDL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">age</span><span class="p">,</span> <span class="n">ldl_cholesterol</span><span class="p">)</span>
+<span class="n">θ</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="o">-</span><span class="mi">210</span>
+</pre></div>
+</div>
+</div>
+<p>For all possible ages and cholesteral levels <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(\theta^T x\)</span> can be thought of as a plane, and the sigmoid function maps the plane (which is not bounded), to the probability of death given the input point <span class="math notranslate nohighlight">\((x_1,\, x_2)\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plane</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">θ</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">AGE</span> <span class="o">+</span> <span class="n">θ</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">LDL</span>
+<span class="n">P_death</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">AGE</span><span class="p">,</span> <span class="n">LDL</span><span class="p">,</span> <span class="n">plane</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta^T x$&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.95</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">dist</span><span class="o">=</span> <span class="mi">12</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">AGE</span><span class="p">,</span> <span class="n">LDL</span><span class="p">,</span> <span class="n">P_death</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">5</span><span class="p">,)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$g(\theta^T x)$&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.95</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">dist</span><span class="o">=</span> <span class="mi">12</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_logistic_regression_17_0.png" src="../_images/tutorial_logistic_regression_17_0.png" />
+</div>
+</div>
+<p>The graphs and weights lend themselves to an intuitive interpretation. From <span class="math notranslate nohighlight">\(g\left(\theta^T x\right)\)</span>, we see that even with very low cholesterol, probability of death increases dramatically past age 65. We also see from <span class="math notranslate nohighlight">\(\theta\)</span> that age has more of an effect on probability of death than cholesterol: even with very bad cholesterol, a 40 year old is almost certainly not going to die within the next month, in our model. However, a doctor might recommend that he or she strive for
+lower LDL levels, since the model predicts death at 60 rather than 80 with bad cholesterol.</p>
+</div>
+<div class="section" id="How-to-train-the-hypothesis-on-data">
+<h3>5.2.5. How to train the hypothesis on data<a class="headerlink" href="#How-to-train-the-hypothesis-on-data" title="Permalink to this headline">¶</a></h3>
+<p>However, we can do a trick where we write the Bernoulli random variable as a continuous random variable in an equivalent way</p>
+<p><span class="math">\begin{equation}
+p(y|x;\theta) = \left(h_\theta(x)\right)^y \left(1-h_\theta(x)\right)^{1-y}
+\end{equation}</span></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">h</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">θ</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s take a 1D example with <span class="math notranslate nohighlight">\(\theta=1\)</span> and <span class="math notranslate nohighlight">\(x=1\)</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">θ</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">h</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>0.7310585786300049
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">h</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">std_fig</span><span class="p">()</span> <span class="k">as</span> <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$p(y|x;\theta)$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span><span class="n">x</span><span class="p">),</span> <span class="n">h</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span><span class="n">x</span><span class="p">)],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorial_logistic_regression_24_0.png" src="../_images/tutorial_logistic_regression_24_0.png" />
+</div>
+</div>
+<p>And we see that the continuous function matches the discrete PMF at the points <span class="math notranslate nohighlight">\(\{0,1\}\)</span> so if we restrict the domain of <span class="math notranslate nohighlight">\(y\)</span> to this set, we have agreement. We could see this also by choosing <span class="math notranslate nohighlight">\(y\)</span> to be 0 or 1 and evaluating directly.</p>
+<p>At first, it seems like we’re taking a step backward, because we’ve gone from a discrete decision back to a continuous representation, but the approach will be similar to the probabilistic interpretation of linear regression. <strong>We will find an expression for the likelihood and then maximize it to find the most likely explanation for the observations given the data.</strong></p>
+<p>Since all of the training examples were generated independently, we can write the likelihood as</p>
+<p><span class="math">\begin{align}
+L(\theta) &= p(y|X;\theta) \\
+&= \prod_{i=1}^m p\left(y^{(i)}|x^{(i)};\theta\right) \\
+&= \prod_{i=1}^m \left[h_\theta\left(x^{(i)}\right)\right]^{y^{(i)}} \left[1-h_\theta\left(x^{(i)}\right)\right]^{1-y^{(i)}}
+\end{align}</span></p>
+<p>We once again (just as in the probabilistic interpretation of of linear regression) maximize the log likelihood</p>
+<p><span class="math">\begin{align}
+\ell(\theta) &= \log
+\prod_{i=1}^m \left[h_\theta\left(x^{(i)}\right)\right]^{y^{(i)}}
+\left[1-h_\theta\left(x^{(i)}\right)\right]^{1-y^{(i)}} \\
+&= \sum_{i=1}^{m}\left(y^{(i)} \log h_\theta\left(x^{(i)}\right) +
+\left(1-y^{(i)}\right) \log\left(1-h_\theta(x^{(i)})\right)\right)
+\end{align}</span></p>
+<p>If we want to use a gradient ascent algorithm, we need to evaluate the update rule</p>
+<p><span class="math">\begin{equation}
+\theta_j := \theta_j + \alpha \frac{\partial }{\partial \theta_j} \ell(\theta)
+\end{equation}</span></p>
+<p>which follows in the direction of the gradient rather than against it since we are trying to maximize <span class="math notranslate nohighlight">\(\ell(\theta)\)</span>. We consider the derivative for the case of a single training example <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. The more general case can be written by including the sum and adding the superscripts.</p>
+<p><span class="math">\begin{align}
+\frac{\partial }{\partial \theta_j}\ell(\theta)
+&= \frac{\partial }{\partial \theta_j}
+\left(y \log g(\theta^T x)  +
+\left(1-y\right) \log\left(1- g(\theta^T x)\right)\right) \\
+&= \left(y \frac{1}{g(\theta^T x)}
+\frac{\partial }{\partial
+\theta_j}g(\theta^T x)
++ (1-y)\frac{1}{1-g(\theta^T x)}
+\frac{\partial }{\partial \theta_j}\left(1-g(\theta^T x)\right)
+\right) \\
+&= \left(y \frac{1}{g(\theta^T x)}
+- (1-y)\frac{1}{1-g(\theta^T x)}
+\right)
+\frac{\partial }{\partial \theta_j}g(\theta^T x) \\
+&= \left(y \frac{1}{g(\theta^T x)} - (1-y)\frac{1}{1-g(\theta^T x)} \right)
+g(\theta^T x) \left(1- g(\theta^T x) \right)
+\frac{\partial }{\partial \theta_j}\left(\theta^T x\right) \\
+&= \left(y\left(1-g(\theta^T x)\right)  - (1-y) g(\theta^T x) \right) x_j \\
+&= \left(y - h_{\theta}(x)\right)x_j
+\end{align}</span></p>
+<p>So the update rule in all of its glory (with the training set indices, etc) is</p>
+<p><span class="math">\begin{equation}
+\theta_j := \theta_j + \alpha\left( y^{(i)} -
+h_\theta\left(x^{(i)}\right)\right),
+\end{equation}</span></p>
+<p>It’s worth pointing out that any constants involved in the sum can be rolled into the learning rate <span class="math notranslate nohighlight">\(\alpha\)</span> since it’s a parameter that has to be tuned anyway. The update rule looks the same as the least mean squares update, but this is only cosmetic. The function <span class="math notranslate nohighlight">\(h_\theta(x)\)</span> is now the nonlinear logistic function.</p>
+</div>
+</div>
+<div class="section" id="Locally-weighted-logistic-regression">
+<h2>5.3. Locally weighted logistic regression<a class="headerlink" href="#Locally-weighted-logistic-regression" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="perceptron.html" class="btn btn-neutral float-right" title="6. Random linear classifiers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="newton_methods.html" class="btn btn-neutral float-left" title="4. Newton methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Corbin Foucart
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
