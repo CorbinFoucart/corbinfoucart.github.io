@@ -1,0 +1,5 @@
+#!/bin/bash
+# Corbin Foucart
+
+make clean
+make html
