@@ -7,7 +7,7 @@
 - [My research](http://mseas.mit.edu/?p=3818) involves computational fluid dynamics and uncertainty
   quantification.
 - I am interested in computer science and [numerical methods for stochastic modeling and
-  inference](pages/NMSMExp_docs/index.html).
+  inference](pages/NMSM_notes/index.html).
 - I write [code](https://github.com/CorbinFoucart) and, occasionally, [fake news](https://stanfordflipside.com/author/cfoucart/).
 
 
