@@ -9,5 +9,6 @@
 - I am interested in computer science and [numerical methods for stochastic modeling and
   inference](pages/NMSM_notes/_build/html/index.html).
 - I write [code](https://github.com/CorbinFoucart) and, occasionally, [fake news](https://stanfordflipside.com/author/cfoucart/).
+- [Test page](pages/testpage/index.html) 
 
 
