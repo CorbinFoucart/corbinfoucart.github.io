@@ -1,8 +1,0 @@
-#!/bin/bash
-# Corbin Foucart
-# starts a python server to serve the docs, use within python env
-# this way, docs can be rebuilt, and refreshing webpage updates changes
-
-# serves at http://localhost:8000/nbuild/html/index.html
-python3 -m http.server
-
