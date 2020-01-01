@@ -1,8 +1,10 @@
 # Personal website
 
-I write it in markdown then use pandoc to generate the HTML.
+I manage the html and css myself.
 
 TODO:
 - [x] bio / description
-- [ ] notes pages, let's democratize knowledge
+- [x] add notes pages, let's democratize some knowledge
 - [ ] hey, how about some CSS?
+- [ ] expanatory notes
+- [ ] cooking?

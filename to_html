@@ -1,1 +1,0 @@
-pandoc -s content.md -o index.html
