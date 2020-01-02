@@ -1,30 +1,135 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html>
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>content</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+<title>Corbin Foucart</title>
+  <style>
+  @import url(http://fonts.googleapis.com/css?family=Roboto:300,400,900);
+  @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,900);
+  @import url(http://fonts.googleapis.com/css?family=Raleway:300,400,500);
+  @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+  :root{
+  --accent: rgb(251, 102, 111);
+  --offblack: #262626;
+  --accent: #3C3DC6; 
+  --accenti: #22AAA1;
+  --accenti: #AF2121; 
+  --accent: #e09b38; 
+  --accent: #f44336;
+  --accent: #0ca8c5;
+  --bggray: rgb(230,229,223);
+  --bggray: #ddd;
+  }
+
+    body {
+      margin:0;
+      padding:0;
+      background: #ddd;
+      background: var(--bggray);
+      color: black;
+    }
+
+    header, section, footer {
+      margin:0;
+      padding: 1px;
+    }
+
+    header {
+      background: var(--bggray);
+      color: var(--offblack);
+    }
+
+    section {
+      background: white;
+
+    }
+
+    .wrapper {
+      display:grid;
+      grid-template-columns: 60% 40%;
+    }
+
+    div {
+      font-size: 20px; 
+    }
+
+    .name {
+      color: var(--accent);
+    }
+
+    .intro_text {
+      font-family: 'Roboto Slab';
+      font-weight: 400;
+      color: var(--offblack);
+      text-align: left;
+      letter-spacing: 0.5px;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    h1 {
+      padding: 20px 50px;
+      font-size: 80px;
+      font-family: 'Roboto';
+    }
+
+    li {
+      padding: 8px;
+    }
+
+    #img {
+      padding: 5%;
+      padding-top: 80px;
+      padding-right: 10%;
+    }
+
+    #bio-list {
+      list-style-type: none;
+      list-style: none;
+      padding: 50px;
+    }
+
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
-<div>
-<h1 id="corbin-foucart">Corbin Foucart</h1>
-<ul>
-<li>I was born in <a href="https://en.wikipedia.org/wiki/Berkeley,_California">the hipster capital of California</a>.</li>
-<li>Now I live in <a href="https://en.wikipedia.org/wiki/Cambridge,_Massachusetts">the hipster capital of Massachusetts</a>.</li>
-<li>I like to swim, play piano, and cook unhealthy food.</li>
-<li>I am currently a PhD student in the <a href="http://mseas.mit.edu/">MSEAS group</a> at MIT.</li>
-<li><a href="http://mseas.mit.edu/?p=3818">My research</a> involves computational fluid dynamics and uncertainty quantification.</li>
-<li>I am interested in computer science and <a href="pages/nmsm/html/index.html">numerical methods for stochastic modeling and inference</a>.</li>
-<li>I write <a href="https://github.com/CorbinFoucart">code</a> and, occasionally, <a href="https://stanfordflipside.com/author/cfoucart/">fake news</a>.</li>
-</ul>
+
+<body>
+<header>
+  <h1><span class="name">Hi,</span> I'm Corbin.</h1>
+</header>
+
+<section class="wrapper">
+<section>
+  <div class="intro_text">
+    <ul id="bio-list">
+      <li>I was born in <a href="https://en.wikipedia.org/wiki/Berkeley,_California">the hipster capital of California</a>.</li>
+      <li>Now, I live in <a href="https://en.wikipedia.org/wiki/Cambridge,_Massachusetts">the hipster capital of Massachusetts</a>.
+      </li>
+      <li>I like to swim, play piano, and cook unhealthy food.</li>
+      <li>
+        I am currently a PhD student in the <a href="http://mseas.mit.edu/">MSEAS</a> group at MIT.</li>
+      <li>
+        My <a href="http://mseas.mit.edu/?p=3818">research</a> involves computational fluid dynamics and uncertainty quantification.</li>
+      <li>I am generally interested in: 
+        <ul>
+          <li>scientific computing</li>
+          <li><a href="pages/nmsm/html/index.html">stochastic modeling and inference</a>.
+      </li>
+        </ul> 
+      <li>I write <a href="https://github.com/CorbinFoucart">code</a> and, occasionally, <a href="https://stanfordflipside.com/author/cfoucart/">fake news</a>.</li>
+    </ul>
+  </div>
+</section>
+<section id="img">
+  <div>
+  <img src="corbin_iii.jpg" alt="Corbin" width=100%>
+  </div>
+</section>
+
+</section>
 </body>
 </html>
