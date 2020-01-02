@@ -1,0 +1,90 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,900);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,900);
+@import url(http://fonts.googleapis.com/css?family=Raleway:300,400,500);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+:root{
+--accent: rgb(251, 102, 111);
+--offblack: #262626;
+--accent: #3C3DC6; 
+--accenti: #22AAA1;
+--accenti: #AF2121; 
+--accent: #e09b38; 
+--accent: #f44336;
+--accent: #0ca8c5;
+--bggray: rgb(230,229,223);
+--bggray: #ddd;
+}
+
+body {
+  margin:0;
+  padding:0;
+  background: #ddd;
+  background: var(--bggray);
+  color: black;
+}
+
+header, section, footer {
+  margin:0;
+  padding: 1px;
+}
+
+header {
+  background: var(--bggray);
+  color: var(--offblack);
+}
+
+section {
+  background: white;
+
+}
+
+.wrapper {
+  display:grid;
+  grid-template-columns: 60% 40%;
+}
+
+div {
+  font-size: 20px; 
+}
+
+.name {
+  color: var(--accent);
+}
+
+.intro_text {
+  font-family: 'Roboto Slab';
+  font-weight: 400;
+  color: var(--offblack);
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+h1 {
+  padding: 20px 50px;
+  font-size: 80px;
+  font-family: 'Roboto';
+}
+
+li {
+  padding: 8px;
+}
+
+#img {
+  padding: 5%;
+  padding-top: 80px;
+  padding-right: 10%;
+}
+
+#bio-list {
+  list-style-type: none;
+  list-style: none;
+  padding: 50px;
+}
+
