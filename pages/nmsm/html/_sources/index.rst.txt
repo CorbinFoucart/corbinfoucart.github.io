@@ -9,11 +9,9 @@ NMSMExp Notes
 This documentation is intended to serve as a running set of notes on numerical
 methods for stochastic modeling.
 
-The NMSMExp project is under construction and at release 0.1. 
+The NMSMExp project is under construction and at version 0.2. I will continue to update it periodically with the goal of releasing it as an open-source textbook with working code at version 1.0.
 
-We can cite a paper, like [Nguyen2009]_, which will typically be shown at the
-bottom of the page. We can reference other parts of the Sphinx project, like
-linking to our :doc:`tutorial/index`.
+References used in the creation of the notes are listed below, like [boyd2004convex]_.
 
 Topics:
 =======
@@ -30,7 +28,18 @@ Code Index
 * :ref:`modindex`
 * :ref:`search`
 
+.. [boyd2004convex] Boyd, S. and Vandenberghe, L., 2004. Convex optimization. Cambridge university press.
+
+.. [bishop2006pattern] Bishop, C.M., 2006. Pattern recognition and machine learning. springer.
+
+.. [davidson2015bayesian] Davidson-Pilon, C., 2015. Bayesian methods for hackers: probabilistic programming and Bayesian inference. Addison-Wesley Professional.
+
+.. [gelman2013bayesian] Gelman, A., Carlin, J.B., Stern, H.S., Dunson, D.B., Vehtari, A. and Rubin, D.B., 2013. Bayesian data analysis. Chapman and Hall/CRC.
+
+.. [rasmussen2003gaussian] Rasmussen, C.E., 2003, February. Gaussian processes in machine learning. In Summer School on Machine Learning (pp. 63-71). Springer, Berlin, Heidelberg.
+
 .. [Nguyen2009] Nguyen, N.C., Peraire, J. and Cockburn, B., 2009. 
        An implicit high-order hybridizable discontinuous Galerkin method for
        linear convection–diffusion equations. Journal of Computational Physics,
        228(9), pp.3232-3254.
+

@@ -61,7 +61,7 @@
     "\n",
     "## The Lagrange dual function\n",
     "\n",
-    "The Lagrange dual function as the minimum value of the Lagrangian over $x$. For\n",
+    "The Lagrange dual function is the minimum value of the Lagrangian over $x$. For\n",
     "$\\lambda\\in \\mathbf{R}^{m}$, $\\nu \\in \\mathbf{R}^{p}$,\n",
     "\n",
     "\\begin{equation}\n",

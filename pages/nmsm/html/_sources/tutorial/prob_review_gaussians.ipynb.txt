@@ -447,6 +447,13 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "### Bayes' theorem for Gaussian variables"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "## Appendix: Derivations"
    ]
   },
@@ -634,7 +641,7 @@
    "toc_cell": false,
    "toc_position": {},
    "toc_section_display": true,
-   "toc_window_display": false
+   "toc_window_display": true
   }
  },
  "nbformat": 4,
